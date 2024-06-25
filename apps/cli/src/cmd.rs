@@ -1,5 +1,8 @@
 use std::io::{self};
-
+use std::thread;
+use std::time::Duration;
+use bcm2837_gpio::RpiGpioPort;
+use axhal::mem::phys_to_virt;
 #[cfg(all(not(feature = "axstd"), unix))]
 
 macro_rules! print_err {
@@ -18,7 +21,8 @@ const CMD_TABLE: &[(&str, CmdHandler)] = &[
     ("help", do_help),
     ("uname", do_uname),
     ("ldr", do_ldr),
-    ("str", do_str)
+    ("str", do_str),
+    ("led_test",do_led_test)
 ];
 
 fn do_uname(_args: &str) {
@@ -44,7 +48,24 @@ fn do_help(_args: &str) {
         println!("  {}", name);
     }
 }
+fn do_led_test(_args:&str){
+    let gpio_base = 0xFE200000 as *mut u8;  //4b
+    let mut gpio_map=RpiGpioPort::new(phys_to_virt((gpio_base as usize).into()).as_mut_ptr());
 
+    println!("led test start...");
+    for _ in 0..2{
+        //open
+        gpio_map.set_value(17,1);
+        println!("open led");
+        println!("The value of led is: {}",gpio_map.get_value(17));
+        thread::sleep(Duration::from_secs(1));
+        //close
+        gpio_map.set_value(17,0);
+        println!("close led");
+        println!("The value of led is: {}",gpio_map.get_value(17));
+        thread::sleep(Duration::from_secs(1));
+    }
+}
 fn do_exit(_args: &str) {
     println!("Bye~");
     std::process::exit(0);

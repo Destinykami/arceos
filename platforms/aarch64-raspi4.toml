@@ -20,12 +20,14 @@ phys-virt-offset = "0xffff_0000_0000_0000"
 mmio-regions = [
     ["0xFE20_1000", "0x1000"],      # PL011 UART
     ["0xFF84_1000", "0x8000"],      # GICv2
+    ["0xFE20_0000","0xB4"],       # gpio
 ]
 virtio-mmio-regions = []
 # UART Address
 uart-paddr = "0xFE20_1000"
 uart-irq = "0x79"
-
+# GPIO Address
+gpio-paddr = "0xFE20_0000"
 # GIC Address
 gicc-paddr = "0xFF84_2000"
 gicd-paddr = "0xFF84_1000"

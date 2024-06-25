@@ -72,7 +72,9 @@ dependencies = [
 name = "arceos-cli"
 version = "0.1.0"
 dependencies = [
+ "axhal",
  "axstd",
+ "bcm2837_gpio",
 ]
 
 [[package]]
@@ -387,6 +389,7 @@ dependencies = [
  "axalloc",
  "axconfig",
  "axlog",
+ "bcm2837_gpio",
  "bitflags 2.4.0",
  "cfg-if",
  "crate_interface",
@@ -540,6 +543,13 @@ dependencies = [
  "log",
  "tock-registers",
  "volatile 0.2.7",
+]
+
+[[package]]
+name = "bcm2837_gpio"
+version = "0.1.0"
+dependencies = [
+ "tock-registers",
 ]
 
 [[package]]

@@ -24,7 +24,7 @@ pub mod misc {
         }
     }
 }
-
+pub mod bcm2837_gpio;
 extern "C" {
     fn exception_vector_base();
     fn rust_main(cpu_id: usize, dtb: usize);
@@ -63,6 +63,7 @@ pub fn platform_init() {
 /// Initializes the platform devices for secondary CPUs.
 #[cfg(feature = "smp")]
 pub fn platform_init_secondary() {
+    bcm2837_gpio::init_led();
     #[cfg(feature = "irq")]
     super::aarch64_common::gic::init_secondary();
     super::aarch64_common::generic_timer::init_percpu();

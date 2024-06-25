@@ -17,3 +17,5 @@ default = []
 # axstd = { path = "../../../ulib/axstd", features = ["alloc", "fs"], optional = true }
 
 axstd = { path = "../../ulib/axstd", optional = true }
+axhal = { path = "../../modules/axhal"}
+bcm2837_gpio = { path = "../../crates/bcm2837_gpio" }
